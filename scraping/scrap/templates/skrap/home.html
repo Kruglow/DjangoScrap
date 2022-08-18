@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 {% block title %}ss{% endblock %}
 {% block content %}
-    {% for offer in vacancy %}
-        <p>{{offer.title}}</p>
-        <p>{{offer.description}}</p>
-        <p>{{offer.city}}</p>
-        <p>{{offer.language}}</p>
-        <p>{{offer.url}}</p>
-    {% endfor %}
+{% for offer in vacancy %}
+<div class="card">
+    <h5 class="card-header">
+        <a href="{{offer.url}}">{{offer.title}}</a>
+    </h5>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text">{{offer.description}}</p>
+        <p class="card-text">{{offer.company}}</p>
+        <p class="card-text">{{offer.city.name}}</p>
+        <p class="card-text">{{offer.language.name}}</p>
+        <p class="card-text">{{ offer.date|date:"d.m.Y" }}</p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+</div>
+{% endfor %}
+
+
+
 {% endblock %}
