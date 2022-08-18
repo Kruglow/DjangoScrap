@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}ss{% endblock %}
+{% block content %}
+    {% for offer in vacancy %}
+        <p>{{offer.title}}</p>
+        <p>{{offer.description}}</p>
+        <p>{{offer.city}}</p>
+        <p>{{offer.language}}</p>
+        <p>{{offer.url}}</p>
+    {% endfor %}
+{% endblock %}
