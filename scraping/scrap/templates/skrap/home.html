@@ -1,23 +1,36 @@
 {% extends "base.html" %}
 {% block title %}ss{% endblock %}
 {% block content %}
-{% for offer in vacancy %}
-<div class="card">
-    <h5 class="card-header">
-        <a href="{{offer.url}}">{{offer.title}}</a>
-    </h5>
+{% if object_list %}
+<h3 class="my-4 text-center">Результаты поиска согласно Вашего запроса. Найдено: {{object_list.count}} вакансий</h3>
+{% for obj in  object_list %}
+<div class="card my-3">
+    <h5 class="card-header"><a href="{{ obj.url }}">{{ obj.title }}</a></h5>
     <div class="card-body">
-        <h5 class="card-title"></h5>
-        <p class="card-text">{{offer.description}}</p>
-        <p class="card-text">{{offer.company}}</p>
-        <p class="card-text">{{offer.city.name}}</p>
-        <p class="card-text">{{offer.language.name}}</p>
-        <p class="card-text">{{ offer.date|date:"d.m.Y" }}</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text">{{ obj.description }}</p>
+        <p><strong>{{ obj.company }}</strong></p>
+        <p>{{obj.city.name }} | {{obj.language.name }} |
+            <small>{{obj.date|date:"d-m-Y" }}</small></p>
+
     </div>
 </div>
 {% endfor %}
 
+{% else %}
+<h3 class="my-4 text-center">К сожалению, по Вашему запросу, ничего не найдено.</h3>
+{% endif %}
+{{ page_obj }}
+<div class="row ">
+    <div class="col-md-6 mx-auto my-3">
+        <h4 class="my-4 text-center">Новый поиск</h4>
+        <form method="GET" action="{% url 'list' %}">
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-primary">Найти</button>
+        </form>
+    </div>
+</div>
 
 
 {% endblock %}

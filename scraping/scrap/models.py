@@ -1,5 +1,8 @@
 from django.db import models
 
+def default_urls():
+    return {'work':'','dou':'','djini':''}
+
 # Create your models here.
 class City(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название города')
@@ -37,7 +40,24 @@ class Vacancy(models.Model):
     class Meta:
         verbose_name = 'Название вакансии'
         verbose_name_plural = 'Название вакансий'
+        ordering = ['-date']
 
     def __str__(self):
         return self.title
 
+
+class Error(models.Model):
+    date = models.DateTimeField(auto_now=True)
+    data = models.JSONField()
+
+    def __str__(self):
+        return str(self.date)
+
+
+class Url(models.Model):
+    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name='Город')
+    language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name='Язык програмирования')
+    url_data = models.JSONField(default=default_urls)
+    
+    class Meta:
+        unique_together = ('city','language')
