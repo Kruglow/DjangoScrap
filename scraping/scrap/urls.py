@@ -1,8 +1,8 @@
 from django.urls import path
 
-from scrap.views import VList, Search
+from scrap.views import home_view, Search, VList
 
 urlpatterns = [
-    path('', VList.as_view(),name='list'),
-    path('search', Search.as_view())
+    path('', home_view,name='home'),
+    path('list', VList.as_view(), name='list')
 ]

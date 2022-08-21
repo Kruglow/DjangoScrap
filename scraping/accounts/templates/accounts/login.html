@@ -1,16 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Главная{% endblock %}
+{% block title %}Login{% endblock %}
 {% block content %}
 
 
 <div class="row ">
     <div class="col-md-6 mx-auto my-3">
-        <h4 class="my-4 text-center">Новый поиск</h4>
-        <form method="GET" action="{% url 'list' %}">
+        <h4 class="my-4 text-center">Форма входа</h4>
+        <form method="POST" action="">{% csrf_token %}
             <div class="form-group">
                 {{ form.as_p }}
             </div>
-            <button type="submit" class="btn btn-primary">Найти</button>
+            <button type="submit" class="btn btn-primary">Войти</button>
         </form>
     </div>
 </div>

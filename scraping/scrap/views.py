@@ -11,11 +11,17 @@ from scrap.models import Vacancy, City
 #     template_name = 'skrap/home.html'
 #     context_object_name = 'vacancy'
 
-class VList(ListView):
-    model = Vacancy
-    template_name = 'skrap/home.html'
+def home_view(request):
+    # print(request.GET)
     form = FindForm()
 
+    return render(request, 'skrap/home.html', {'form': form})
+
+
+class VList(ListView):
+    model = Vacancy
+    template_name = 'skrap/list.html'
+    form = FindForm()
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -38,6 +44,7 @@ class VList(ListView):
                 _filter['language__slug'] = language
             qs = Vacancy.objects.filter(**_filter).select_related('city', 'language')
         return qs
+
 
 class Search(ListView):
     model = Vacancy
